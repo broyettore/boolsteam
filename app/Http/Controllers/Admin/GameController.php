@@ -44,8 +44,7 @@ class GameController extends Controller
         $newGame->fill($data);
         $newGame->save();
 
-        return to_route('games.show', $newGame->$id);
-
+        return to_route('games.show', $newGame->id);
     }
 
     /**
@@ -57,7 +56,6 @@ class GameController extends Controller
     public function show(Game $game)
     {
         return view('games.show', compact('game'));
-
     }
 
     /**
@@ -69,7 +67,6 @@ class GameController extends Controller
     public function edit(Game $game)
     {
         return view('games.edit');
-
     }
 
     /**
