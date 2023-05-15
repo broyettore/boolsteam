@@ -38,7 +38,13 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-        return view('games.store');
+        $request->validated();
+        $data = $request->all();
+        $newGame = new Game();
+        $newGame->fill($data);
+        $newGame->save();
+
+        return to_route('games.show', $newGame->$id);
 
     }
 
@@ -50,7 +56,7 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return view('games.show');
+        return view('games.show', compact('game'));
 
     }
 
