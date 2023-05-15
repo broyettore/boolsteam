@@ -8,7 +8,7 @@
 
 @section('page.main')
     <div class="container">
-        <form action="{{route('games.store')}}" method="post">
+        <form action="{{ route('games.store') }}" method="post">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
@@ -50,6 +50,18 @@
             <label for="pegi" class="form-label">PEGI</label>
             <input type="text" class="form-control" id="pegi" name="pegi" value="{{ old('pegi') }}">
         </div>
+        <div class="mb-3">
+            <input type="submit" value="submit">
+        </div>
         </form>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     </div>
 @endsection
