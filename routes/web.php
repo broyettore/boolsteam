@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\GameController;
 */
 
 Route::get('/', function () {
-    return view('games');
+    return view('home');
 });
 
 Route::resource('games', GameController::class);
