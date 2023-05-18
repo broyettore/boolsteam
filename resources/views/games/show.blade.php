@@ -10,7 +10,7 @@
 <div class="container">
 
     <p>{{ $game->description }}</p>
-    <div class="d-flex flex-column ">
+    <div class="d-flex flex-column">
         <ul class="list-unstyled">
 
             <li class="text-center my-3"><img src="{{ $game->url }}"></li>
@@ -22,7 +22,7 @@
             <li>Developers: {{ $game->developer }}</li>
             <li>Release date: {{ $game->release }}</li>
             <li>PEGI {{ $game->pegi }}</li>
-            <li class="mt-2">Price: {{ $game->price }}$</li>
+            <li class="mt-2">Price: {{ $game->price }} €</li>
             <li><a class="btn btn-primary mt-4" href="{{ route('games.index', $game->id) }}">Back</a></li>
         </ul>
     </div>
