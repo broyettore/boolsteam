@@ -34,7 +34,7 @@ class GameSeeder extends Seeder
         }
     }
 
-    
+
     private function generateDev(Faker $faker, int $n_persons): string{
 
         $result = [];

@@ -78,7 +78,22 @@ class GameController extends Controller
      */
     public function update(UpdateGameRequest $request, Game $game)
     {
-        //
+        $request->validated();
+        $data = $request->all();
+
+        $game->title = $data['title'];
+        $game->description = $data['description'];
+        $game->url = $data['url'];
+        $game->price = $data['price'];
+        $game->genres = $data['genres'];
+        $game->languages = $data['languages'];
+        $game->editor = $data['editor'];
+        $game->developer = $data['developer'];
+        $game->release = $data['release'];
+        $game->pegi = $data['pegi'];
+        $game->save();
+
+        return to_route('games.index', $game->id);
     }
 
     /**

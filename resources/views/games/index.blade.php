@@ -15,12 +15,12 @@
             <div class="card" style="width: 18rem;">
                 <img src="{{$game->url}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h4 class="card-title">{{$game->title}}</h4>
-                  <p class="card-text">Descrizione: {{$game->description}}</p>
-                  <h3 class="card-title">{{$game->price}}$</h3>
-                  <a href="{{ route('games.show', $game->id) }}">Veedi info</a>
+                    <h4 class="card-title">{{$game->title}}</h4>
+                    <p class="card-text">Descrizione: {{$game->description}}</p>
+                    <h3 class="card-title">{{ $game->price }} €</h3>
+                    <a href="{{ route('games.show', $game->id) }}">Vedi info</a>
                 </div>
-              </div>
+            </div>
         </li>
         @endforeach
     </ul>
