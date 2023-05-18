@@ -23,7 +23,7 @@
             <li>Release date: {{ $game->release }}</li>
             <li>PEGI {{ $game->pegi }}</li>
             <li class="mt-2">Price: {{ $game->price }} €</li>
-            <li><a class="btn btn-primary mt-4" href="{{ route('games.index', $game->id) }}">Back</a></li>
+            <li><a class="btn btn-primary mt-4" href="{{ route('admin.games.index', $game->id) }}">Back</a></li>
         </ul>
     </div>
 </div>

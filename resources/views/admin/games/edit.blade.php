@@ -9,10 +9,10 @@
 @section('page.main')
 
     <div class="container">
-        <a href="{{ route('games.index') }}" class="m-5 btn btn-primary">Torna alla lista</a>
+        <a href="{{ route('admin.games.index') }}" class="m-5 btn btn-primary">Torna alla lista</a>
         <H1>Modifica Elemento: {{$game->title}}</H1>
 
-        <form action="{{route('games.update', $game)}}" method="POST">
+        <form action="{{route('admin.games.update', $game)}}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">
