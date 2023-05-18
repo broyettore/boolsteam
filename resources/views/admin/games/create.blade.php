@@ -21,7 +21,7 @@
             </div>
             @endif
         </div>
-        <form action="{{ route('games.store') }}" method="post">
+        <form action="{{ route('admin.games.store') }}" method="post">
 
         @csrf
         <div class="mb-3">
