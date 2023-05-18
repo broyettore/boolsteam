@@ -7,16 +7,30 @@
 @endsection
 
 @section('page.main')
+
     <div class="container">
+
+        <div>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+        </div>
         <form action="{{ route('games.store') }}" method="post">
+
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}">
         </div>
         <div class="mb-3">
-            <label for="descr" class="form-label">Description</label>
-            <input type="text" class="form-control" id="descr" name="description" value="{{ old('description') }}">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}">
         </div>
         <div class="mb-3">
             <label for="url" class="form-label">URL</label>

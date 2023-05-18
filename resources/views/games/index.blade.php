@@ -20,7 +20,7 @@
                 <div class="card-body">
                   <h4 class="card-title">{{$game->title}}</h4>
                   <p class="card-text">Descrizione: {{$game->description}}</p>
-                  <h3 class="card-title">{{$game->price}}$</h3>
+                  <h3 class="card-title">{{$game->price}}€</h3>
                   <a href="{{ route('games.show', $game->id) }}">Vedi info</a>
                   <a href="{{ route('games.edit', $game->id) }}" class="btn btn-success">Edit</a>
 
@@ -32,7 +32,7 @@
                     <button type="subtim" class="btn btn-danger">Delete</button>
                   </form>
                 </div>
-              </div>
+            </div>
         </li>
         @endforeach
     </ul>
