@@ -18,11 +18,19 @@
             <div class="card" style="width: 18rem;">
                 <img src="{{$game->url}}" class="card-img-top" alt="...">
                 <div class="card-body">
+                  <h4 class="card-title">{{$game->title}}</h4>
+                  <p class="card-text">Descrizione: {{$game->description}}</p>
+                  <h3 class="card-title">{{$game->price}}€</h3>
+                  <a href="{{ route('games.show', $game->id) }}">Vedi info</a>
+                  <a href="{{ route('games.edit', $game->id) }}" class="btn btn-success">Edit</a>
 
-                    <h4 class="card-title">{{$game->title}}</h4>
-                    <p class="card-text">Descrizione: {{$game->description}}</p>
-                    <h3 class="card-title">{{ $game->price }} €</h3>
-                    <a href="{{ route('games.show', $game->id) }}">Vedi info</a>
+
+                  <form action="{{ route('games.destroy', $game->id )}}" method="POST">
+                    @csrf
+
+                    @method('DELETE')
+                    <button type="subtim" class="btn btn-danger">Delete</button>
+                  </form>
                 </div>
             </div>
         </li>
