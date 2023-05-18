@@ -17,6 +17,7 @@ class GameController extends Controller
     public function index()
     {
         $games = Game::all();
+
         return view('games.index', compact('games'));
     }
 
@@ -45,6 +46,7 @@ class GameController extends Controller
         $newGame->save();
 
         return to_route('games.show', $newGame->id);
+
     }
 
     /**
