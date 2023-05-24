@@ -71,7 +71,7 @@ class GameController extends Controller
             $newGame->editor_id = $data['editor_id'];
         }
 
-        return to_route('admin.games.show', $game->id)->with('message', 'Game created!');
+        return to_route('admin.games.show', $newGame->id)->with('message', 'Game created!');
     }
 
     /**

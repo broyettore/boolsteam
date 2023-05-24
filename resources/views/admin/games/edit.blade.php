@@ -31,12 +31,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="url" class="form-label">URL</label>
-                <input type="text" class="form-control @error('url') is-invalid @enderror" id="url" name="url" value="{{ old('url', $game->url) }}">
-                @error('url')<div class="alert alert-danger">{{ $message }}</div>@enderror
-            </div>
-
-            <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <input type="number" step=0.01 class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $game->price) }}">
                 @error('price')<div class="alert alert-danger">{{ $message }}</div>@enderror

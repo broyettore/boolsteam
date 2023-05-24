@@ -14,7 +14,15 @@
         <ul class="list-unstyled">
             <li class="my-3"><img src=" {{ asset("storage/" . $game->image) }}" alt="{{ $game->title }}" class="show-img"></li>
             <li>Description: {{ $game->description }}</li>
-            <li>Genre: {{ $game->genres }}</li>
+            <li>Genre: 
+                @foreach ($game->genres as $genre)
+                @if ($loop->last)
+                <span>{{ $genre->title }}</span>.
+                @else     
+                <span>{{ $genre->title }}</span>,
+            @endif
+                @endforeach
+            </li>
             <li>Languages:{{ $game->languages }}</li>
             <li>Editor: {{ $game->editor }}</li>
             <li>Developers: {{ $game->developer }}</li>
