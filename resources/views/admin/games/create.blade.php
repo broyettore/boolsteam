@@ -48,12 +48,7 @@
                 <label for="languages" class="form-label">Languages</label>
                 <input type="text" class="form-control" id="languages" name="languages" value="{{ old('languages') }}">
             </div>
-
-            <div class="mb-3">
-                <label for="editor" class="form-label">Editor</label>
-                <input type="text" class="form-control" id="editor" name="editor" value="{{ old('editor') }}">
-            </div>
-
+            
             <div class="mb-3">
                 <label for="developer" class="form-label">Developer</label>
                 <input type="text" class="form-control" id="developer" name="developer" value="{{ old('developer') }}">
@@ -67,6 +62,15 @@
             <div class="mb-3">
                 <label for="pegi" class="form-label">PEGI</label>
                 <input type="text" class="form-control" id="pegi" name="pegi" value="{{ old('pegi') }}">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="editors">Editor:</label>
+              <select class="form-select" id="editors" name="editor_id">
+                  <option selected value="">Select the editor</option>
+                  @foreach ($editors as $editor)
+                      <option value="{{$editor->id}}" {{old($editor->id) == $editor->id ? 'selected' : ''}}>{{$editor->name}}</option>
+                  @endforeach
+                </select>
             </div>
 
             <div class="mb-3">
@@ -91,6 +95,6 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+        @endif
     </div>
 @endsection

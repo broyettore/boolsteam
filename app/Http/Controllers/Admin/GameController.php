@@ -7,6 +7,7 @@ use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Editor;
 use App\Models\Genre;
 
 class GameController extends Controller
@@ -30,10 +31,11 @@ class GameController extends Controller
      */
     public function create()
     {
+        $editors = Editor::all();
         $genres = Genre::all();
         $descriptions = Description::all();
 
-        return view('admin.games.create', compact('descriptions', "genres"));
+        return view('admin.games.create', compact('descriptions', "genres", "editors"));
     }
 
     /**
@@ -46,7 +48,7 @@ class GameController extends Controller
     {
         $data = $request->validated();
         $newGame = new Game();
-
+      
         $newGame->fill($data);
         $newGame->save();
       
@@ -57,6 +59,10 @@ class GameController extends Controller
         if(isset($data['genres']))
         {
             $newGame->genres()->sync($data['genres']);
+        }
+      
+        if (isset($data['editor_id'])) {
+            $newGame->editor_id = $data['editor_id'];
         }
 
         return to_route('admin.games.show', $game->id)->with('message', 'Game created!');
@@ -81,8 +87,11 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
+      
+        $editors = Editor::all();
         $genres = Genre::all();
-        return view('admin.games.edit', compact('game', 'genres'));
+        return view('admin.games.edit', compact('game', 'genres', "editors"));
+
     }
 
     /**
@@ -98,15 +107,17 @@ class GameController extends Controller
         $data = $request->all();
 
         $game->title = $data['title'];
-        $game->description = $data['description'];
         $game->url = $data['url'];
         $game->price = $data['price'];
         $game->genres = $data['genres'];
         $game->languages = $data['languages'];
-        $game->editor = $data['editor'];
         $game->developer = $data['developer'];
         $game->release = $data['release'];
         $game->pegi = $data['pegi'];
+
+
+        $game->editor_id = $data['editor_id'];
+
         $game->save();
 
         $genres = isset($data['genres']) ? $data['genres'] : [];

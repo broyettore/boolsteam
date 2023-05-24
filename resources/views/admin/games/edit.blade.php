@@ -11,7 +11,15 @@
     <div class="container">
         <a href="{{ route('admin.games.index') }}" class="m-5 btn btn-primary">Torna alla lista</a>
         <H1>Modifica Elemento: {{$game->title}}</H1>
-
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form action="{{route('admin.games.update', $game)}}" method="POST">
         @csrf
         @method('PUT')
@@ -47,12 +55,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="editor" class="form-label">Editor</label>
-                <input type="text" class="form-control @error('editor') is-invalid @enderror" id="editor" name="editor" value="{{ old('editor', $game->editor) }}">
-                @error('editor')<div class="alert alert-danger">{{ $message }}</div>@enderror
-            </div>
-
-            <div class="mb-3">
                 <label for="developer" class="form-label">Developer</label>
                 <input type="text" class="form-control @error('developer') is-invalid @enderror" id="developer" name="developer" value="{{ old('developer', $game->developer) }}">
                 @error('developer')<div class="alert alert-danger">{{ $message }}</div>@enderror
@@ -68,6 +70,15 @@
                 <label for="pegi" class="form-label">PEGI</label>
                 <input type="text" class="form-control @error('pegi') is-invalid @enderror" id="pegi" name="pegi" value="{{ old('pegi', $game->pegi) }}">
                 @error('pegi')<div class="alert alert-danger">{{ $message }}</div>@enderror
+            </div>
+            <div class="mb-3">
+            <label class="form-label" for="editors">Editor:</label>
+              <select class="form-select" id="editors" name="editor_id">
+                  <option selected value="">Select the editor</option>
+                  @foreach ($editors as $editor)
+                      <option value="{{$editor->id}}" {{old('editor_id',$game->editor_id) == $editor->id ? 'selected' : ''}}>{{$editor->name}}</option>
+                  @endforeach
+                </select>
             </div>
 
             <div class="mb-3">
