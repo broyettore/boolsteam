@@ -25,12 +25,13 @@ class StoreGameRequest extends FormRequest
     {
         return [
             "title" => "required|max:60",
-            "url" => "required|url",
+            "description" => "required",
             "price" => "required|numeric|decimal:2",
             "languages" => "required",
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
+            "image" => "nullable|image",
             'editor_id' => 'nullable|exists:editors,id'
             "genres" => "nullable|exists:genres,id",
             "description_id" => "nullable|exists:description,id"

@@ -1,26 +1,20 @@
 @extends('layouts.app')
 
 @section('title')
-    <div class="container">
+    <div class="container py-2">
         <h1>MODIFICA ELEMENTO</h1>
     </div>
 @endsection
 
 @section('page.main')
 
-    <div class="container">
-        <a href="{{ route('admin.games.index') }}" class="m-5 btn btn-primary">Torna alla lista</a>
+    <div class="container py-3">
+        <a href="{{ route('admin.games.index') }}" class="mb-3 btn btn-primary">Torna alla lista</a>
         <H1>Modifica Elemento: {{$game->title}}</H1>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-        <form action="{{route('admin.games.update', $game)}}" method="POST">
+
+        @include('partials.errors')
+
+        <form action="{{route('admin.games.update', $game)}}" method="POST" enctype="multipart/form-data" class="form-input-image">
         @csrf
         @method('PUT')
 
@@ -90,8 +84,26 @@
                     </div>
                 @endforeach
             </div>
+            
+             {{-- image holder  --}}
+
+          <div class="mb-3 @if(!$game->image) d-none @endif"  id="image-input-container">
+
+                <!-- Img Preview -->
+                <div class="preview">
+                    <img id="file-image-preview" @if($game->image) src="{{ asset('storage/' . $game->image) }}" @endif>
+                </div>
+                <!-- /Img Preview -->
+
+
+                <label for="image" class="form-label">Image</label>
+                <input class="form-control" type="file" id="image" name="image">
+          </div>
+
+        {{-- image holder  --}}
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+    
 @endsection

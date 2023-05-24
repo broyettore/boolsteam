@@ -32,7 +32,7 @@ class GameSeeder extends Seeder
             $newGame = new Game();
 
             $newGame->title = $faker->sentence(3);
-            $newGame->url = $faker->imageUrl(640, 480, 'animals', true);
+            $newGame->description = $faker->text();
             $newGame->price = $faker->randomFloat(2, 1, 80);
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));

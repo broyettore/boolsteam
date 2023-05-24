@@ -7,6 +7,7 @@ use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Editor;
 use App\Models\Genre;
 
@@ -50,6 +51,11 @@ class GameController extends Controller
         $newGame = new Game();
       
         $newGame->fill($data);
+
+        if(isset($data["image"])) {
+            $newGame->image = Storage::put("uploads", $data["image"]);
+        }
+
         $newGame->save();
       
        if(isset($data['description_id'])){
@@ -103,22 +109,17 @@ class GameController extends Controller
      */
     public function update(UpdateGameRequest $request, Game $game)
     {
-        $request->validated();
-        $data = $request->all();
+        $data = $request->validated();
 
-        $game->title = $data['title'];
-        $game->url = $data['url'];
-        $game->price = $data['price'];
-        $game->genres = $data['genres'];
-        $game->languages = $data['languages'];
-        $game->developer = $data['developer'];
-        $game->release = $data['release'];
-        $game->pegi = $data['pegi'];
+         if (empty($data['image'])) {
 
+             if($game->image){
+                 Storage::delete($game->image);
+             }
 
-        $game->editor_id = $data['editor_id'];
+            $game->image = Storage::put('uploads', $data['image']);
+         }
 
-        $game->save();
 
         $genres = isset($data['genres']) ? $data['genres'] : [];
         $game->genres()->sync($genres);
@@ -136,6 +137,10 @@ class GameController extends Controller
     public function destroy(Game $game)
     {
         $game->delete();
+
+        if($game->image){
+            Storage::delete($game->image);
+        }
 
         return redirect()->route('admin.games.index');
     }
