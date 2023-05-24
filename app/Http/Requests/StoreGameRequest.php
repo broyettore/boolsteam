@@ -34,6 +34,7 @@ class StoreGameRequest extends FormRequest
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
+            "description_id" => "nullable|exists:description,id"
         ];
     }
 }
