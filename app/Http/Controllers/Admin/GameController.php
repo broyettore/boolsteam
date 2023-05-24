@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
@@ -28,7 +29,9 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('admin.games.create');
+        $descriptions = Description::all();
+
+        return view('admin.games.create', compact('descriptions'));
     }
 
     /**
@@ -42,6 +45,12 @@ class GameController extends Controller
         $request->validated();
         $data = $request->all();
         $newGame = new Game();
+
+
+        if(isset($data['description_id'])){
+            $newGame->description_id = $data['description_id'];
+        }
+
         $newGame->fill($data);
         $newGame->save();
 

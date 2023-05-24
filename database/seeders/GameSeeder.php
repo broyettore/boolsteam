@@ -7,6 +7,9 @@ use Illuminate\Database\Seeder;
 use App\Models\Game;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
+use App\Models\Description;
+use Illuminate\Support\Facades\Schema;
+
 
 class GameSeeder extends Seeder
 {
@@ -17,7 +20,16 @@ class GameSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+
+        Schema::disableForeignKeyConstraints();
+        Game::truncate();
+        Schema::enableForeignKeyConstraints();
+
+
         for($i = 0; $i < 50; $i++) {
+
+            $description = Description::inRandomOrder()->first();
+
             $newGame = new Game();
 
             $newGame->title = $faker->sentence(3);
@@ -30,6 +42,7 @@ class GameSeeder extends Seeder
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));
             $newGame->release = $faker->dateTime();
             $newGame->pegi = $faker->randomElement(["3","7","16","12","18"]);
+            $newGame->description_id = $description->id;
             $newGame->save();
         }
     }
