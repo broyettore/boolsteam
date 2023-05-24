@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            GameSeeder::class,
-            GenreSeeder::class
+            GenreSeeder::class,
+            DescriptionSeeder::class,
+            GameSeeder::class
         ]);
 
+        // \App\Models\User::factory(10)->create();
     }
 }

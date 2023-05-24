@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
@@ -30,7 +31,9 @@ class GameController extends Controller
     public function create()
     {
         $genres = Genre::all();
-        return view('admin.games.create', compact('genres'));
+        $descriptions = Description::all();
+
+        return view('admin.games.create', compact('descriptions', "genres"));
     }
 
     /**
@@ -41,17 +44,19 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-        /* $request->validated(); */
-
         $data = $request->validated();
-        $game = new Game();
+        $newGame = new Game();
 
-        $game->fill($data);
-        $game->save();
+        $newGame->fill($data);
+        $newGame->save();
+      
+       if(isset($data['description_id'])){
+            $newGame->description_id = $data['description_id'];
+        }
 
         if(isset($data['genres']))
         {
-            $game->genres()->sync($data['genres']);
+            $newGame->genres()->sync($data['genres']);
         }
 
         return to_route('admin.games.show', $game->id)->with('message', 'Game created!');

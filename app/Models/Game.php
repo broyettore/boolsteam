@@ -9,9 +9,13 @@ class Game extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
+  
     public function genres()
     {
         return $this->belongsToMany(Genre::class)->withTimestamps();
+    }
+
+    public function description(){
+        return $this->hasOne(Description::class);
     }
 }
