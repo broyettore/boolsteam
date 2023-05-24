@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Editor;
+use App\Models\Genre;
 
 class GameController extends Controller
 {
@@ -29,7 +32,11 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('admin.games.create');
+        $editors = Editor::all();
+        $genres = Genre::all();
+        $descriptions = Description::all();
+
+        return view('admin.games.create', compact('descriptions', "genres", "editors"));
     }
 
     /**
@@ -41,8 +48,8 @@ class GameController extends Controller
     public function store(StoreGameRequest $request)
     {
         $data = $request->validated();
-
         $newGame = new Game();
+      
         $newGame->fill($data);
 
         if(isset($data["image"])) {
@@ -50,8 +57,21 @@ class GameController extends Controller
         }
 
         $newGame->save();
+      
+       if(isset($data['description_id'])){
+            $newGame->description_id = $data['description_id'];
+        }
 
-        return to_route('admin.games.show', $newGame->id);
+        if(isset($data['genres']))
+        {
+            $newGame->genres()->sync($data['genres']);
+        }
+      
+        if (isset($data['editor_id'])) {
+            $newGame->editor_id = $data['editor_id'];
+        }
+
+        return to_route('admin.games.show', $game->id)->with('message', 'Game created!');
     }
 
     /**
@@ -73,7 +93,11 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('admin.games.edit', compact('game'));
+      
+        $editors = Editor::all();
+        $genres = Genre::all();
+        return view('admin.games.edit', compact('game', 'genres', "editors"));
+
     }
 
     /**
@@ -87,15 +111,18 @@ class GameController extends Controller
     {
         $data = $request->validated();
 
-        // if (empty($data['image'])) {
+         if (empty($data['image'])) {
 
-            // if($game->image){
-            //     Storage::delete($game->image);
-            // }
+             if($game->image){
+                 Storage::delete($game->image);
+             }
 
             $game->image = Storage::put('uploads', $data['image']);
-        // }
+         }
 
+
+        $genres = isset($data['genres']) ? $data['genres'] : [];
+        $game->genres()->sync($genres);
         $game->update($data);
 
         return to_route('admin.games.index', $game->id);

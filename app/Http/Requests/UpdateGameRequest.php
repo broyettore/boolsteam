@@ -27,13 +27,14 @@ class UpdateGameRequest extends FormRequest
             "title" => "required|max:60",
             "description" => "required",
             "price" => "required|numeric|decimal:2",
-            "genres" => "required",
             "languages" => "required",
-            "editor" => "required",
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
             "image" => "nullable|image",
+            'editor_id' => 'nullable|exists:editors,id'
+            "genres" => "nullable|exists:genres,id",
+            "description_id" => "nullable|exists:description,id"
         ];
     }
 }
