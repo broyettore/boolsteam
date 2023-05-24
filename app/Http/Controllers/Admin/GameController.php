@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Editor;
 
 class GameController extends Controller
 {
@@ -28,7 +29,8 @@ class GameController extends Controller
      */
     public function create()
     {
-        return view('admin.games.create');
+        $editors = Editor::all();
+        return view('admin.games.create', compact('editors'));
     }
 
     /**
@@ -42,6 +44,10 @@ class GameController extends Controller
         $request->validated();
         $data = $request->all();
         $newGame = new Game();
+
+        if (isset($data['editor_id'])) {
+            $newGame->editor_id = $data['editor_id'];
+        }
         $newGame->fill($data);
         $newGame->save();
 
@@ -67,7 +73,8 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        return view('admin.games.edit', compact('game'));
+        $editors = Editor::all();
+        return view('admin.games.edit', compact('game', 'editors'));
     }
 
     /**
@@ -83,15 +90,17 @@ class GameController extends Controller
         $data = $request->all();
 
         $game->title = $data['title'];
-        $game->description = $data['description'];
         $game->url = $data['url'];
         $game->price = $data['price'];
         $game->genres = $data['genres'];
         $game->languages = $data['languages'];
-        $game->editor = $data['editor'];
         $game->developer = $data['developer'];
         $game->release = $data['release'];
         $game->pegi = $data['pegi'];
+
+
+        $game->editor_id = $data['editor_id'];
+
         $game->save();
 
         return to_route('admin.games.index', $game->id);

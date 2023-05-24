@@ -21,7 +21,6 @@ return new class extends Migration
             $table->float("price", 5, 2);
             $table->text("genres")->nullable();
             $table->text("languages")->nullable();
-            $table->string("editor", 50);
             $table->text("developer");
             $table->date("release");
             $table->string("pegi");

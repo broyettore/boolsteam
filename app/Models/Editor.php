@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Game extends Model
+class Editor extends Model
 {
     use HasFactory;
-    protected $guarded = ['editor_id'];
 
-    public function editor()
+    public function games()
     {
-        return $this->belongsTo(Editor::class);
+        return $this->hasMany(Game::class);
     }
 }

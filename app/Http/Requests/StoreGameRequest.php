@@ -30,10 +30,10 @@ class StoreGameRequest extends FormRequest
             "price" => "required|numeric|decimal:2",
             "genres" => "required",
             "languages" => "required",
-            "editor" => "required",
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
+            'editor_id' => 'nullable|exists:editors,id'
         ];
     }
 }
