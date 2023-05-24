@@ -26,7 +26,7 @@
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <input type="text" class="form-control @error('description') is-invalid @enderror" id="descrition" name="description" value="{{ old('description', $game->description) }}">
+                <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ old('description', $game->description) }}">
                 @error('description')<div class="alert alert-danger">{{ $message }}</div>@enderror
             </div>
 

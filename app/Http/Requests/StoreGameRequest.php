@@ -25,7 +25,6 @@ class StoreGameRequest extends FormRequest
     {
         return [
             "title" => "required|max:60",
-            "description" => "required",
             "price" => "required|numeric|decimal:2",
             "languages" => "required",
             "developer" => "required",

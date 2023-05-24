@@ -23,7 +23,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h4 class="card-title"><img src=" {{ asset("storage/" . $game->image) }}" alt="{{ $game->title }}" class="img-fluid"></h4>
-                <p class="card-text">Descrizione: {{$game->description}}</p>
+                {{-- <p class="card-text">Descrizione: {{ $game->descriptions->description }}</p> --}}
                 <h3 class="card-title">{{$game->price}}€</h3>
                 <a href="{{ route('admin.games.show', $game->id) }}">Vedi info</a>
                 <div class="d-flex mt-3">

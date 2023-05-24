@@ -93,10 +93,10 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-      
+        $descriptions = Description::all();
         $editors = Editor::all();
         $genres = Genre::all();
-        return view('admin.games.edit', compact('game', 'genres', "editors"));
+        return view('admin.games.edit', compact('game', 'genres', "editors", "descriptions"));
 
     }
 
