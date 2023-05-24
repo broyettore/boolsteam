@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Description;
 use App\Models\Game;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
 use App\Models\Editor;
+use App\Models\Genre;
 
 class GameController extends Controller
 {
@@ -30,7 +32,10 @@ class GameController extends Controller
     public function create()
     {
         $editors = Editor::all();
-        return view('admin.games.create', compact('editors'));
+        $genres = Genre::all();
+        $descriptions = Description::all();
+
+        return view('admin.games.create', compact('descriptions', "genres", "editors"));
     }
 
     /**
@@ -41,17 +46,26 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-        $request->validated();
-        $data = $request->all();
+        $data = $request->validated();
         $newGame = new Game();
+      
+        $newGame->fill($data);
+        $newGame->save();
+      
+       if(isset($data['description_id'])){
+            $newGame->description_id = $data['description_id'];
+        }
 
+        if(isset($data['genres']))
+        {
+            $newGame->genres()->sync($data['genres']);
+        }
+      
         if (isset($data['editor_id'])) {
             $newGame->editor_id = $data['editor_id'];
         }
-        $newGame->fill($data);
-        $newGame->save();
 
-        return to_route('admin.games.show', $newGame->id);
+        return to_route('admin.games.show', $game->id)->with('message', 'Game created!');
     }
 
     /**
@@ -73,8 +87,11 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
+      
         $editors = Editor::all();
-        return view('admin.games.edit', compact('game', 'editors'));
+        $genres = Genre::all();
+        return view('admin.games.edit', compact('game', 'genres', "editors"));
+
     }
 
     /**
@@ -102,6 +119,10 @@ class GameController extends Controller
         $game->editor_id = $data['editor_id'];
 
         $game->save();
+
+        $genres = isset($data['genres']) ? $data['genres'] : [];
+        $game->genres()->sync($genres);
+        $game->update($data);
 
         return to_route('admin.games.index', $game->id);
     }

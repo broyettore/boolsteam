@@ -25,15 +25,15 @@ class UpdateGameRequest extends FormRequest
     {
         return [
             "title" => "required|max:60",
-            "description" => "required",
             "url" => "required|url",
             "price" => "required|numeric|decimal:2",
-            "genres" => "required",
             "languages" => "required",
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
             'editor_id' => 'nullable|exists:editors,id'
+            "genres" => "nullable|exists:genres,id",
+            "description_id" => "nullable|exists:description,id"
         ];
     }
 }

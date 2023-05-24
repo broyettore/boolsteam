@@ -7,6 +7,9 @@ use Illuminate\Database\Seeder;
 use App\Models\Game;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
+use App\Models\Description;
+use Illuminate\Support\Facades\Schema;
+
 
 class GameSeeder extends Seeder
 {
@@ -17,18 +20,26 @@ class GameSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        for ($i = 0; $i < 50; $i++) {
+
+        Schema::disableForeignKeyConstraints();
+        Game::truncate();
+        Schema::enableForeignKeyConstraints();
+
+        for($i = 0; $i < 50; $i++) {
+
+            $description = Description::inRandomOrder()->first();
+
             $newGame = new Game();
 
             $newGame->title = $faker->sentence(3);
-            $newGame->description = $faker->text();
             $newGame->url = $faker->imageUrl(640, 480, 'animals', true);
             $newGame->price = $faker->randomFloat(2, 1, 80);
-            $newGame->genres = Arr::join($faker->randomElements(["action", "adventure", "arcade", "RPG", "Simulation"], $faker->numberBetween(1, 5)), ",");
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));
             $newGame->release = $faker->dateTime();
-            $newGame->pegi = $faker->randomElement(["3", "7", "16", "12", "18"]);
+            $newGame->pegi = $faker->randomElement(["3","7","16","12","18"]);
+            $newGame->description_id = $description->id;
+
             $newGame->save();
         }
     }
