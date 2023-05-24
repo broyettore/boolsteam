@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Game;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Schema;
 
 class GameSeeder extends Seeder
 {
@@ -17,6 +18,10 @@ class GameSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
+        Schema::disableForeignKeyConstraints();
+        Game::truncate();
+        schema::enableForeignKeyConstraints();
+
         for($i = 0; $i < 50; $i++) {
             $newGame = new Game();
 
@@ -24,7 +29,6 @@ class GameSeeder extends Seeder
             $newGame->description = $faker->text();
             $newGame->url = $faker->imageUrl(640, 480, 'animals', true);
             $newGame->price = $faker->randomFloat(2, 1, 80);
-            $newGame->genres = Arr::join($faker->randomElements(["action", "adventure", "arcade", "RPG", "Simulation"], $faker->numberBetween(1, 5)), ",");
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");
             $newGame->editor = $faker->company();
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));
