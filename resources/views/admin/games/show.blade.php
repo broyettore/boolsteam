@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-<div class="container my-4 text-center">
+<div class="container my-4">
     <h1>{{ $game->title }}</h1>
 </div>
 @endsection
@@ -10,11 +10,9 @@
 <div class="container">
 
     <p>{{ $game->description }}</p>
-    <div class="d-flex flex-column">
+    <div>
         <ul class="list-unstyled">
-
-            <li class="text-center my-3"><img src="{{ $game->url }}"></li>
-
+            <li class="my-3"><img src=" {{ asset("storage/" . $game->image) }}" alt="{{ $game->title }}" class="show-img"></li>
             <li>Description: {{ $game->description }}</li>
             <li>Genre: {{ $game->genres }}</li>
             <li>Languages:{{ $game->languages }}</li>

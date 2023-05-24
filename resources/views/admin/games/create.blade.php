@@ -1,27 +1,21 @@
 @extends('layouts.app')
 
 @section('title')
-    <div class="container">
+    <div class="container py-2">
         <h1>INSERISCI I DATI:</h1>
     </div>
 @endsection
 
 @section('page.main')
 
-    <div class="container">
+    <div class="container py-3">
+        <a href="{{ route('admin.games.index') }}" class="mb-3 btn btn-primary">Torna alla lista</a>
 
         <div>
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+            @include('partials.errors')
         </div>
-        <form action="{{ route('admin.games.store') }}" method="post">
+
+        <form action="{{ route('admin.games.store') }}" method="post" enctype="multipart/form-data" class="form-input-image">
 
         @csrf
         <div class="mb-3">
@@ -31,10 +25,6 @@
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
             <input type="text" class="form-control" id="description" name="description" value="{{ old('description') }}">
-        </div>
-        <div class="mb-3">
-            <label for="url" class="form-label">URL</label>
-            <input type="text" class="form-control" id="url" name="url" value="{{ old('url') }}">
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price</label>
@@ -64,18 +54,26 @@
             <label for="pegi" class="form-label">PEGI</label>
             <input type="text" class="form-control" id="pegi" name="pegi" value="{{ old('pegi') }}">
         </div>
+
+        {{-- image holder   --}}
+
         <div class="mb-3">
-            <input type="submit" value="submit">
+            
+            <!-- Img Preview -->
+            <div class="preview">
+                <img id="file-image-preview">
+            </div>
+            <!-- /Img Preview -->
+            
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" id="image" name="image" value="{{ old("image") }}">
+        </div>
+
+        {{-- image holder   --}}
+
+        <div class="mb-3">
+            <input type="submit" value="submit" class="btn btn-primary">
         </div>
         </form>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     </div>
 @endsection

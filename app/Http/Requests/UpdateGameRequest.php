@@ -26,7 +26,6 @@ class UpdateGameRequest extends FormRequest
         return [
             "title" => "required|max:60",
             "description" => "required",
-            "url" => "required|url",
             "price" => "required|numeric|decimal:2",
             "genres" => "required",
             "languages" => "required",
@@ -34,6 +33,7 @@ class UpdateGameRequest extends FormRequest
             "developer" => "required",
             "release" => "required",
             "pegi" => "required",
+            "image" => "nullable|image",
         ];
     }
 }

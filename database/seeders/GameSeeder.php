@@ -22,7 +22,6 @@ class GameSeeder extends Seeder
 
             $newGame->title = $faker->sentence(3);
             $newGame->description = $faker->text();
-            $newGame->url = $faker->imageUrl(640, 480, 'animals', true);
             $newGame->price = $faker->randomFloat(2, 1, 80);
             $newGame->genres = Arr::join($faker->randomElements(["action", "adventure", "arcade", "RPG", "Simulation"], $faker->numberBetween(1, 5)), ",");
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");

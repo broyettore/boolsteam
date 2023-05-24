@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string("title", 50);
             $table->text("description");
-            $table->text("url");
             $table->float("price", 5, 2);
             $table->text("genres")->nullable();
             $table->text("languages")->nullable();
