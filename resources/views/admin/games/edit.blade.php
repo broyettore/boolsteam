@@ -97,18 +97,6 @@
                 <input class="form-control" type="file" id="image" name="image">
             </div>
 
-          {{-- <div class="mb-3 @if(!$game->image) d-none @endif"  id="image-input-container">
-
-                <!-- Img Preview -->
-                <div class="preview">
-                    <img id="file-image-preview" @if($game->image) src="{{ asset('storage/' . $game->image) }}" @endif>
-                </div>
-                <!-- /Img Preview -->
-
-
-                <label for="image" class="form-label">Image</label>
-                <input class="form-control" type="file" id="image" name="image">
-          </div> --}}
 
         {{-- image holder  --}}
 
