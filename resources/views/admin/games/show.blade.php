@@ -22,7 +22,7 @@
                 @endforeach
             </li>
             <li>Languages:{{ $game->languages }}</li>
-            <li>Editor: {{ $game->editor }}</li>
+            <li>Editor: {{ $game->editor->name }}</li>
             <li>Developers: {{ $game->developer }}</li>
             <li>Release date: {{ $game->release }}</li>
             <li>PEGI {{ $game->pegi }}</li>

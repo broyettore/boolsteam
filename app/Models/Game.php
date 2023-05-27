@@ -9,7 +9,7 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['editor_id', 'image'];
+    protected $guarded = ['image'];
 
     public function editor()
     {
