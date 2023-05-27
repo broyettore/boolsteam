@@ -9,7 +9,7 @@ class Game extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['editor_id'];
+    protected $guarded = ['editor_id', 'image'];
 
     public function editor()
     {
@@ -21,7 +21,7 @@ class Game extends Model
         return $this->belongsToMany(Genre::class)->withTimestamps();
     }
 
-    public function description(){
-        return $this->hasOne(Description::class);
-    }
+    // public function description(){
+    //     return $this->hasOne(Description::class);
+    // }
 }

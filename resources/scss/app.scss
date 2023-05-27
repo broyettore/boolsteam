@@ -1,9 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
-.project-img > img,
+.project-img>img,
 #file-image-preview,
 .show-img {
-    height: 300px;
+    width: 200px;
 }
-
-

@@ -34,9 +34,9 @@ class GameController extends Controller
     {
         $editors = Editor::all();
         $genres = Genre::all();
-        $descriptions = Description::all();
+        // $descriptions = Description::all();
 
-        return view('admin.games.create', compact('descriptions', "genres", "editors"));
+        return view('admin.games.create', compact(/*'descriptions',*/"genres", "editors"));
     }
 
     /**
@@ -49,24 +49,23 @@ class GameController extends Controller
     {
         $data = $request->validated();
         $newGame = new Game();
-      
+
         $newGame->fill($data);
 
-        if(isset($data["image"])) {
+        if (isset($data["image"])) {
             $newGame->image = Storage::put("uploads", $data["image"]);
         }
 
         $newGame->save();
-      
-       if(isset($data['description_id'])){
-            $newGame->description_id = $data['description_id'];
-        }
 
-        if(isset($data['genres']))
-        {
+        // if (isset($data['description_id'])) {
+        //     $newGame->description_id = $data['description_id'];
+        // }
+
+        if (isset($data['genres'])) {
             $newGame->genres()->sync($data['genres']);
         }
-      
+
         if (isset($data['editor_id'])) {
             $newGame->editor_id = $data['editor_id'];
         }
@@ -93,11 +92,10 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        $descriptions = Description::all();
+        // $descriptions = Description::all();
         $editors = Editor::all();
         $genres = Genre::all();
-        return view('admin.games.edit', compact('game', 'genres', "editors", "descriptions"));
-
+        return view('admin.games.edit', compact('game', 'genres', "editors"/*, "descriptions"*/));
     }
 
     /**
@@ -111,14 +109,28 @@ class GameController extends Controller
     {
         $data = $request->validated();
 
-         if (empty($data['image'])) {
+        if (empty($data['set_image'])) {
+            if ($game->image) {
+                Storage::delete($game->image);
+                $game->image = null;
+            }
+        } else {
+            if (isset($data['image'])) {
+                if ($game->image) {
+                    Storage::delete($game->image);
+                }
+                $game->image = Storage::put('uploads', $data['image']);
+            }
+        }
 
-             if($game->image){
-                 Storage::delete($game->image);
-             }
+        // if (empty($data['image'])) {
 
-            $game->image = Storage::put('uploads', $data['image']);
-         }
+        //     if ($game->image) {
+        //         Storage::delete($game->image);
+        //     }
+
+        //     $game->image = Storage::put('uploads', $data['image']);
+        // }
 
 
         $genres = isset($data['genres']) ? $data['genres'] : [];
@@ -136,11 +148,13 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        $game->delete();
 
-        if($game->image){
+        if ($game->image) {
             Storage::delete($game->image);
         }
+        $game->delete();
+
+
 
         return redirect()->route('admin.games.index');
     }

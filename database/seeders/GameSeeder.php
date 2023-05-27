@@ -25,9 +25,9 @@ class GameSeeder extends Seeder
         Game::truncate();
         Schema::enableForeignKeyConstraints();
 
-        for($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 50; $i++) {
 
-            $description = Description::inRandomOrder()->first();
+            // $description = Description::inRandomOrder()->first(); CAMBIARE RANDOM!!!!
 
             $newGame = new Game();
 
@@ -36,8 +36,8 @@ class GameSeeder extends Seeder
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));
             $newGame->release = $faker->dateTime();
-            $newGame->pegi = $faker->randomElement(["3","7","16","12","18"]);
-            $newGame->description_id = $description->id;
+            $newGame->pegi = $faker->randomElement(["3", "7", "16", "12", "18"]);
+            // $newGame->description_id = $description->id;
 
             $newGame->save();
         }

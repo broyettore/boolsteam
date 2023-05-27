@@ -9,7 +9,7 @@ class Description extends Model
 {
     use HasFactory;
 
-    public function game(){
-        return $this->belongsTo(Game::class);
-    }
+    // public function game(){
+    //     return $this->belongsTo(Game::class);
+    // }
 }

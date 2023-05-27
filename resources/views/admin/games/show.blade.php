@@ -8,12 +8,10 @@
 
 @section('page.main')
 <div class="container">
-
-    <p>{{ $game->description }}</p>
     <div>
         <ul class="list-unstyled">
             <li class="my-3"><img src=" {{ asset("storage/" . $game->image) }}" alt="{{ $game->title }}" class="show-img"></li>
-            <li>Description: {{ $game->description }}</li>
+            {{-- <li>Description: {{ $game->description }}</li> --}}
             <li>Genre: 
                 @foreach ($game->genres as $genre)
                 @if ($loop->last)
