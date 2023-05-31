@@ -152,6 +152,8 @@ class GameController extends Controller
         //dd($data['relevant']);
         $game->relevant = $data['relevant'];
 
+
+
         $genres = isset($data['genres']) ? $data['genres'] : [];
         $game->genres()->sync($genres);
         $game->update($data);
