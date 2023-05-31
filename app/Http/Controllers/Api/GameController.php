@@ -10,7 +10,7 @@ class GameController extends Controller
 {
     public function index()
     {
-        $games = Game::with('editor', 'genres')->get();
+        $games = Game::with('editor', 'genres')->take(7)->get();
         return response()->json([
             'success' => true,
             'results' => $games
@@ -19,7 +19,7 @@ class GameController extends Controller
 
     public function relevant()
     {
-        $game = Game::where('relevant', true)->with('editor', 'genres')->get();
+        $game = Game::where('relevant', true)->with('editor', 'genres')->first();
 
         return response()->json([
             'success' => true,
