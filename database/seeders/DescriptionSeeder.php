@@ -24,10 +24,10 @@ class DescriptionSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
 
-        for($i = 0; $i < 50; $i++){
+        for ($i = 0; $i < 10; $i++) {
             $description = new Description();
             $description->description = $faker->text(500);
             $description->save();
-        } 
+        }
     }
 }

@@ -33,7 +33,7 @@ class StoreGameRequest extends FormRequest
             "image" => "nullable|image",
             'editor_id' => 'nullable|exists:editors,id',
             "genres" => "nullable|exists:genres,id",
-            "description_id" => "nullable|exists:description,id"
+            // "description_id" => "nullable|exists:description,id"
         ];
     }
 }

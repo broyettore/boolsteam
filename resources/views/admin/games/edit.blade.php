@@ -24,11 +24,11 @@
                 @error('title')<div class="alert alert-danger">{{ $message }}</div>@enderror
             </div>
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" name="description" value="{{ old('description', $game->description) }}">
                 @error('description')<div class="alert alert-danger">{{ $message }}</div>@enderror
-            </div>
+            </div> --}}
 
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
@@ -81,18 +81,22 @@
             
              {{-- image holder  --}}
 
-          <div class="mb-3 @if(!$game->image) d-none @endif"  id="image-input-container">
 
-                <!-- Img Preview -->
+             <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="set_image" name="set_image" value="1" @if($game->image) checked @endif>
+                <label class="form-check-label" for="set_image">Upload Image?</label>
+            </div>
+            <div class="mb-3 @if(!$game->image) d-none @endif"  id="image-input-container">
+                <!-- upload preview -->
                 <div class="preview">
                     <img id="file-image-preview" @if($game->image) src="{{ asset('storage/' . $game->image) }}" @endif>
                 </div>
-                <!-- /Img Preview -->
-
-
+                <!-- /upload preview -->
+    
                 <label for="image" class="form-label">Image</label>
                 <input class="form-control" type="file" id="image" name="image">
-          </div>
+            </div>
+
 
         {{-- image holder  --}}
 
