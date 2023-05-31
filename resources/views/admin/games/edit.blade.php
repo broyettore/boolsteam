@@ -68,7 +68,7 @@
                   @endforeach
                 </select>
             </div>
-
+            @if ($errors->any())
             <div class="mb-3">
                 <h6 class="mb-3">Genres</h6>
                 @foreach($genres as $genre)
@@ -77,6 +77,17 @@
                         <label class="form-check-label" for="genres">{{$genre->title}}</label>
                     </div>
                 @endforeach
+            @else
+            <div class="mb-3">
+                <h6 class="mb-3">Genres</h6>
+                @foreach($genres as $genre)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="genres" value="{{$genre->id}}" name="genres[]" {{ $game->genres->contains($genre->id) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="genres">{{$genre->title}}</label>                              
+                    </div>
+                @endforeach
+            @endif
+            
             </div>
             
              {{-- image holder  --}}
@@ -99,8 +110,18 @@
 
 
         {{-- image holder  --}}
-
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <label for="discount" class="form-label">Discount</label>
+            <input type="number" class="form-control" id="discount" name="discount" value="{{ old('discount', $game->discount)}}">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="relevant">Relevant:</label>
+            <select class="form-select" id="relevant" name="relevant">
+                <option value="0" {{$game->relevant == 0 ? 'selected' : ''}}>No</option>
+                <option value="1" {{$game->relevant == 1 ? 'selected' : ''}}>Yes</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     

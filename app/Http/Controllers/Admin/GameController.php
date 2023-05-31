@@ -48,6 +48,8 @@ class GameController extends Controller
     public function store(StoreGameRequest $request)
     {
         $data = $request->validated();
+
+        // dd($data['relevant']);
         $newGame = new Game();
 
         $newGame->fill($data);
@@ -56,6 +58,17 @@ class GameController extends Controller
             $newGame->image = Storage::put("uploads", $data["image"]);
         }
 
+        //check if the input is true anf changhe all the others relevant fileds in the table
+        if ($data['relevant'] == 1) {
+            $allGames = Game::all();
+            foreach ($allGames as $game) {
+                //dd($game);
+                $game->relevant = 0;
+                $game->update();
+            }
+            //$game->update();
+        }
+        $newGame->relevant = $data['relevant'];
         $newGame->save();
 
         // if (isset($data['description_id'])) {
@@ -69,6 +82,8 @@ class GameController extends Controller
         if (isset($data['editor_id'])) {
             $newGame->editor_id = $data['editor_id'];
         }
+
+
 
         return to_route('admin.games.show', $newGame->id)->with('message', 'Game created!');
     }
@@ -123,6 +138,18 @@ class GameController extends Controller
             }
         }
 
+        //check if the input is true anf changhe all the others relevant fileds in the table
+        if ($data['relevant'] == 1) {
+            $allGames = Game::all();
+            foreach ($allGames as $singleGame) {
+                //dd($game);
+                $singleGame->relevant = 0;
+                $singleGame->update();
+            }
+            //$game->update();
+        }
+
+        $game->relevant = $data['relevant'];
         // if (empty($data['image'])) {
 
         //     if ($game->image) {

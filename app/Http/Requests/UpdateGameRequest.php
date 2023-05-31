@@ -34,6 +34,8 @@ class UpdateGameRequest extends FormRequest
             'set_image' => 'boolean',
             'editor_id' => 'nullable|exists:editors,id',
             "genres" => "nullable|exists:genres,id",
+            "discount" => "required|integer|min:0|max:75",
+            "relevant" => "boolean"
             // "description_id" => "nullable|exists:description,id"
         ];
     }
