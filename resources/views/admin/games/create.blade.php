@@ -87,7 +87,10 @@
           </div>
 
         {{-- image holder   --}}
-
+        <div class="mb-3">
+            <label for="discount" class="form-label">Discount</label>
+            <input type="number" class="form-control" id="discount" name="discount" value="{{ old('discount') }}">
+        </div>
             <div class="mb-3">
                 <input type="submit" value="submit">
             </div>

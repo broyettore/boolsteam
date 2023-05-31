@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text("developer");
             $table->date("release");
             $table->integer("discount");
-            $table->boolean("relevant");
+            $table->boolean("relevant")->default(0);
             $table->string("pegi");
             $table->timestamps();
         });
