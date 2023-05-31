@@ -36,6 +36,8 @@ class GameSeeder extends Seeder
             $newGame->languages = Arr::join($faker->randomElements(["italian", "english", "french", "german", "spanish"], $faker->numberBetween(1, 5)), ",");
             $newGame->developer = $this->generateDev($faker, $faker->randomDigitNot(0));
             $newGame->release = $faker->dateTime();
+            $newGame->relevant = false;
+            $newGame->discount = $faker->numberBetween(0, 70);
             $newGame->pegi = $faker->randomElement(["3", "7", "16", "12", "18"]);
             // $newGame->description_id = $description->id;
 
