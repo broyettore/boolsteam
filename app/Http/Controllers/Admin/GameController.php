@@ -140,24 +140,18 @@ class GameController extends Controller
 
         //check if the input is true anf changhe all the others relevant fileds in the table
         if ($data['relevant'] == 1) {
-            $allGames = Game::all();
+            //$allGames = Game::all();
+            $allGames = Game::where('relevant', true)->get();
+            //dd($allGames);
             foreach ($allGames as $singleGame) {
-                //dd($game);
                 $singleGame->relevant = 0;
                 $singleGame->update();
             }
-            //$game->update();
         }
-
+        //dd($game->relevant);
+        //dd($data['relevant']);
         $game->relevant = $data['relevant'];
-        // if (empty($data['image'])) {
 
-        //     if ($game->image) {
-        //         Storage::delete($game->image);
-        //     }
-
-        //     $game->image = Storage::put('uploads', $data['image']);
-        // }
 
 
         $genres = isset($data['genres']) ? $data['genres'] : [];
@@ -175,14 +169,10 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-
         if ($game->image) {
             Storage::delete($game->image);
         }
         $game->delete();
-
-
-
         return redirect()->route('admin.games.index');
     }
 }

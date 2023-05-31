@@ -16,4 +16,24 @@ class GameController extends Controller
             'results' => $games
         ]);
     }
+
+    public function relevant()
+    {
+        $game = Game::where('relevant', true)->with('editor', 'genres')->get();
+
+        return response()->json([
+            'success' => true,
+            'results' => $game
+        ]);
+    }
+
+    public function top3()
+    {
+
+        $games = Game::orderByDesc('discount')->take(3)->get();
+        return response()->json([
+            'success' => true,
+            'results' => $games
+        ]);
+    }
 }
