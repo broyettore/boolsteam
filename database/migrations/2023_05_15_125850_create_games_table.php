@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text("languages")->nullable();
             $table->text("developer");
             $table->date("release");
+            $table->integer("discount");
+            $table->boolean("relevant");
             $table->string("pegi");
             $table->timestamps();
         });
