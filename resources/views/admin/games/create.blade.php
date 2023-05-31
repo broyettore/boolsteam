@@ -91,9 +91,16 @@
             <label for="discount" class="form-label">Discount</label>
             <input type="number" class="form-control" id="discount" name="discount" value="{{ old('discount') }}">
         </div>
-            <div class="mb-3">
-                <input type="submit" value="submit">
-            </div>
+        <div class="mb-3">
+            <label class="form-label" for="relevant">Relevant:</label>
+            <select class="form-select" id="relevant" name="relevant">
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="submit">
+        </div>
         </form>
         
     </div>

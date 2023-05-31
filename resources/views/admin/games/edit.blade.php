@@ -114,7 +114,14 @@
             <label for="discount" class="form-label">Discount</label>
             <input type="number" class="form-control" id="discount" name="discount" value="{{ old('discount', $game->discount)}}">
         </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <label class="form-label" for="relevant">Relevant:</label>
+            <select class="form-select" id="relevant" name="relevant">
+                <option value="0" {{$game->relevant == 0 ? 'selected' : ''}}>No</option>
+                <option value="1" {{$game->relevant == 1 ? 'selected' : ''}}>Yes</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
     
